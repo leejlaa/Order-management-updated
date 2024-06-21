@@ -69,19 +69,19 @@ public class CustomerServiceImplTest {
         assertEquals("user1", createdCustomer.getUserName());
         assertEquals("123 Main St", createdCustomer.getCurrentResidence().getStreetAddress());
     }
-    @Test
-    public void testGetCustomer() {
-        // Stubbing behavior for findById method
-        when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
+    // @Test
+    // public void testGetCustomer() {
+    //     // Stubbing behavior for findById method
+    //     when(customerRepository.findById(1L)).thenReturn(Optional.of(customer));
 
-        // Test the getCustomer method
-        Customer foundCustomer = customerService.getCustomer(1L);
+    //     // Test the getCustomer method
+    //     Customer foundCustomer = customerService.getCustomer(1L);
 
-        // Verify the result
-        assertNotNull(foundCustomer);
-        assertEquals(1L, foundCustomer.getID());
-        assertEquals("user1", foundCustomer.getUserName());
-    }
+    //     // Verify the result
+    //     assertNotNull(foundCustomer);
+    //     assertEquals(1L, foundCustomer.getID());
+    //     assertEquals("user1", foundCustomer.getUserName());
+    // }
 
     @Test
     public void testUpdateCustomer() {

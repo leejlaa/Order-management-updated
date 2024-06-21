@@ -1,0 +1,78 @@
+/* src/styles/ProductCatalog.css */
+
+.product-catalog-container {
+    margin-top: 50px; /* Adjusted margin-top */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.product-catalog {
+    text-align: center;
+    padding: 20px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjusted to space-between */
+    gap: 20px; /* Adds space between the product cards */
+    margin-top: 20px; /* Adds space at the top of the product list */
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    width: calc(30% - 20px); /* Adjusted the card width for multiple cards per row */
+    text-align: left;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    flex: 1 1 calc(30% - 20px); /* Added flex properties */
+    max-width: calc(30% - 20px); /* Added max-width to prevent overflow */
+    box-sizing: border-box;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.product-card h2 {
+    font-size: 1.2em;
+    margin: 0 0 10px 0;
+}
+
+.product-card p {
+    margin: 5px 0;
+}
+
+.product-card button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: #555;
+}
+
+@media (max-width: 1200px) {
+    .product-card {
+        flex: 1 1 calc(45% - 20px); /* Adjust card width for smaller screens */
+        max-width: calc(45% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        flex: 1 1 calc(100% - 20px); /* Single column layout on smaller screens */
+        max-width: calc(100% - 20px);
+    }
+}

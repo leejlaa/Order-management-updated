@@ -25,12 +25,13 @@ public class AdminServiceImpl implements AdminService{
     private ProductRepository productRepository;
 
 
-    public Admin createAdmin(Admin admin) {
+    public Admin createAdmin(Long superid, Admin admin) {
        
         Admin existingAdmin = adminRepository.findByUserName(admin.getUserName());
         if (existingAdmin != null) {
             return null;
         }
+        admin.setCreatedByAdmin(adminRepository.findByID(superid));
         return adminRepository.save(admin);
     }
 
@@ -99,6 +100,10 @@ public class AdminServiceImpl implements AdminService{
 
     public String JSONAdmins(){   
         return adminRepository.findAllAdminsJson();
+    }
+
+    public Long getAdminByEmail(String email) {
+        return adminRepository.findAdminIdByEmail(email);
     }
     
 

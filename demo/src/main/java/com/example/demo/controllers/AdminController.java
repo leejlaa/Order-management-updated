@@ -14,6 +14,7 @@ import com.example.demo.dto.AdminDTO;
 import com.example.demo.models.Admin;
 import com.example.demo.services.impl.AdminServiceImpl;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,14 +23,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/admins")
+@CrossOrigin(origins="*")
 public class AdminController {
 
     @Autowired 
     private AdminServiceImpl adminService;
 
-    @PostMapping
-    public Admin createAdmin(@RequestBody Admin admin) {
-        return adminService.createAdmin(admin);
+    @PostMapping("{superId}")
+    public Admin createAdmin(@PathVariable Long superId, @RequestBody Admin admin) {
+        return adminService.createAdmin(superId,admin);
     }
     
     @GetMapping
@@ -37,9 +39,9 @@ public class AdminController {
        return adminService.getAdmins();
     }
 
-    @GetMapping("/{id}")
-        public Admin getAdmin(@PathVariable Long id) {
-            return adminService.getAdmin(id);
+    @GetMapping("/{email}")
+        public Long getAdmin(@PathVariable String email) {
+            return adminService.getAdminByEmail(email);
     }
 
     @PutMapping("/{id}")   

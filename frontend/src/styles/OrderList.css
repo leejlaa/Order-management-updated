@@ -1,0 +1,46 @@
+/* src/styles/OrderList.css */
+
+.order-list-container {
+    margin-top: 2000px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-list-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.order-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Adjusted to space-between */
+    gap: 20px; /* Added gap between order cards */
+}
+
+.order-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(30% - 20px); /* Adjusted the card width for multiple cards per row */
+    max-width: calc(30% - 20px);
+    box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+    .order-card {
+        flex: 1 1 calc(45% - 20px); /* Adjust card width for smaller screens */
+        max-width: calc(45% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    .order-card {
+        flex: 1 1 calc(100% - 20px); /* Single column layout on smaller screens */
+        max-width: calc(100% - 20px);
+    }
+}

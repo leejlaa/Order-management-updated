@@ -1,0 +1,60 @@
+/* Container styling */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    max-width: 500px;
+    background-color: #f9f9f9;
+}
+
+/* General input styling */
+input[type="text"], input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Label styling */
+label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Button styling */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="button"] {
+    background-color: #28a745;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button[type="button"]:hover {
+    background-color: #218838;
+}
+
+/* Message styling */
+p {
+    margin-top: 20px;
+    font-weight: bold;
+    color: #d9534f;
+}

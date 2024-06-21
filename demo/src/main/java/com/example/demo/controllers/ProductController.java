@@ -8,13 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.AdminDTO;
 import com.example.demo.dto.ProductDTO;
+import com.example.demo.models.Admin;
 import com.example.demo.models.Product;
+import com.example.demo.services.impl.AdminServiceImpl;
 import com.example.demo.services.impl.ProductServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,13 +28,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin(origins="*")
 public class ProductController {
 
     @Autowired
     private ProductServiceImpl productService;
 
-    @PostMapping
-    public ProductDTO createProduct(@RequestBody Product product) {
+    @Autowired
+    private AdminServiceImpl adminService;
+
+    @PostMapping("/{adminId}")
+    public ProductDTO createProduct(@PathVariable Long adminId, @RequestBody Product product) {
 
         ProductDTO productDTO = new ProductDTO();
         productDTO.setProductName(product.getProductName());
@@ -40,6 +47,8 @@ public class ProductController {
         productDTO.setQuantity(product.getQuantity());
         productDTO.setReleaseDate(product.getReleaseDate());
         productDTO.setAvailabilityDate(product.getAvailabilityDate());
+
+        product.setAdmin(adminService.getAdmin(adminId));
 
         productService.createProduct(product);
 

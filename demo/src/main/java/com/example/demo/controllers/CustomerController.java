@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/customers")
+@CrossOrigin(origins="*")
 public class CustomerController {
     private final CustomerServiceImpl customerService;
     private final OrderServiceImpl orderService;
@@ -38,9 +40,9 @@ public class CustomerController {
         this.objectMapper = new ObjectMapper();
     }
 
-    @PostMapping("/{adminID}")
-    public Customer createCustomer(@PathVariable Long adminID, @RequestBody Customer customer) {
-        return customerService.createCustomer(adminID,customer);
+    @PostMapping("/{adminId}")
+    public Customer createCustomer(@PathVariable Long adminId, @RequestBody Customer customer) {
+        return customerService.createCustomer(adminId,customer);
     }
 
     @GetMapping
@@ -82,15 +84,21 @@ public class CustomerController {
     }
 
     
-    @GetMapping("/{id}")
-    public CustomerDTO getCustomer(@PathVariable Long id) {
-        Customer customer =  customerService.getCustomer(id);
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setUserName(customer.getUserName());
-        customerDTO.setID(customer.getID());
-        customerDTO.setEmail(customer.getEmail());
-        customerDTO.setRole(customer.getRole());
-        return customerDTO;
+    // @GetMapping("/{email}")
+    // public CustomerDTO getCustomer(@PathVariable String email) {
+    //     Customer customer =  customerService.getCustomer(email);
+    //     CustomerDTO customerDTO = new CustomerDTO();
+    //     customerDTO.setUserName(customer.getUserName());
+    //     customerDTO.setID(customer.getID());
+    //     customerDTO.setEmail(customer.getEmail());
+    //     customerDTO.setRole(customer.getRole());
+    //     return customerDTO;
+    // }
+
+    @GetMapping("/{email}")
+    public Long getCustomer(@PathVariable String email) {
+        Customer customer =  customerService.getCustomer(email);
+        return customer.getID();
     }
 
     @PutMapping("/{id}")

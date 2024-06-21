@@ -1,0 +1,28 @@
+/* src/styles/OrderCard.css */
+
+.order-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-card h2 {
+    margin: 0 0 15px;
+}
+
+.order-card .order-product {
+    margin-bottom: 10px;
+}
+
+.order-card .order-product .product-info {
+    margin: 10px 0;
+}
+
+.order-card .order-total {
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: right;
+}

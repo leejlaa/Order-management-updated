@@ -38,5 +38,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     
     @Query(value = "SELECT jsonb_agg(jsonb_build_object('ID', p.productid, 'product name', p.product_name, 'quantity', p.quantity, 'realease date' , p.release_date, 'createdBy', p.admin_id)) FROM Products p;", nativeQuery = true)
     String findAllProductsJson();
+
+    @Modifying
+    @Query(value = "SELECT jsonb_agg(jsonb_build_object('ID', p.productid, 'product name', p.product_name, 'quantity', p.quantity, 'realease date' , p.release_date, 'createdBy', p.admin_id)) FROM Products p WHERE p.productid = p.productID;", nativeQuery = true)
+    Product updateProduct(Product product);
     
 }

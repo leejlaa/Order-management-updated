@@ -1,0 +1,67 @@
+/* ProductForm.css */
+
+.product-form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+}
+
+.product-form-container h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.product-form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-form-container input[type="text"],
+.product-form-container input[type="number"],
+.product-form-container input[type="date"] {
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+.product-form-container input[type="text"]:focus,
+.product-form-container input[type="number"]:focus,
+.product-form-container input[type="date"]:focus {
+    outline: none;
+    border-color: dodgerblue;
+}
+
+.product-form-container button[type="submit"] {
+    background-color: dodgerblue;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease;
+}
+
+.product-form-container button[type="submit"]:hover {
+    background-color: #007bff;
+}
+
+.product-form-container .error {
+    color: red;
+    margin-top: 10px;
+}
+
+.product-form-container .success {
+    color: green;
+    margin-top: 10px;
+}

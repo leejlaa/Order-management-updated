@@ -7,7 +7,7 @@ import com.example.demo.models.Admin;
 
 public interface AdminService {
 
-    public Admin createAdmin(Admin admin);
+    public Admin createAdmin(Long superId,Admin admin);
     public Admin getAdmin(Long id);
     public Admin getAdminByUserName(String userName);
     public Admin updateAdmin(Long id, Admin admin);
@@ -18,6 +18,7 @@ public interface AdminService {
     public Admin updateAdmin(Admin admin);
     public String exportAdmins(); 
     public List<Admin> getAllAdmins();
+    public Long getAdminByEmail(String email);
     
 
 }

@@ -46,6 +46,10 @@ public class CustomerServiceImpl implements CustomerService{
         return customerRepository.save(customer);
     }
 
+    public Customer getCustomer(String email) {
+        return customerRepository.findByEmail(email);
+    }
+
     public Customer getCustomer(Long id) {
         return customerRepository.findById(id).orElse(null);
     }
@@ -103,6 +107,11 @@ public class CustomerServiceImpl implements CustomerService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Long getCustomerId(String email) {
+        return customerRepository.findCustomerIdByEmail(email);
     }
 
     

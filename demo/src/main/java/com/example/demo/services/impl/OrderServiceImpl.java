@@ -5,12 +5,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dto.OrderProductDTO;
+import com.example.demo.dto.PlaceOrderRequest;
 import com.example.demo.models.Customer;
 import com.example.demo.models.Order;
 import com.example.demo.models.OrderProduct;
@@ -19,6 +22,7 @@ import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.OrderProductRepository;
 import com.example.demo.repositories.OrderRepository;
 import com.example.demo.repositories.ProductRepository;
+import com.example.demo.services.CustomerService;
 import com.example.demo.services.OrderService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -29,8 +33,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
+
+
+
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private final OrderRepository orderRepository;
@@ -44,6 +51,7 @@ public class OrderServiceImpl implements OrderService{
     @Autowired
     private ProductRepository productRepository;
 
+   
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -94,50 +102,43 @@ public class OrderServiceImpl implements OrderService{
             e.printStackTrace();
         }
     }
+
     @Transactional
-    public Order createOrderForCustomer(Long customerId, Order order) {
+    public Order createOrderForCustomer(Long customerId, PlaceOrderRequest request) {
         // Check if customer exists
-        java.util.Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
-        if (optionalCustomer.isPresent()) {
-            Customer customer = optionalCustomer.get();
-            order.setCustomer(customer);
-            return orderRepository.save(order);
-        } else {
-            // Customer does not exist, handle as required (e.g., throw exception, return null)
-            return null;
-        }
-
-    }
-
-
-    // public String exportDataToJson (Long customerID) {
-       
-
-    //     List<Order> orders = orderRepository.findByCustomerID(customerID);
-    //     List<OrderProduct> orderProducts = new ArrayList<>();
-
-    //     for (Order order : orders) {
-    //         orderProducts = orderProductRepository.findByOrderId(order.getOrderID());
-
-    //         // System.out.println("Order ID: "+order.getOrderID());
-    //         // for(OrderProduct orderProduct: orderProducts){
-                
-    //         // text=" product name: "+orderProduct.getProduct().getProductName() + " quantity: "+orderProduct.getQuantity()
-    //         // + " price: "+orderProduct.getPrice()+"\n";
-            
-
-            
-    //     }
-    //     try {
-    //         return objectMapper.writeValueAsString(orderProducts);
-    //     } catch (JsonProcessingException e) {
-
-    //         e.printStackTrace();
-    //         return null; 
-    //     }
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
     
-    // }
-
+        Order order = new Order();
+        order.setCustomer(customer);
+    
+        List<OrderProduct> orderProducts = new ArrayList<>();
+        for (OrderProductDTO opDTO : request.getOrderProducts()) {
+            System.out.println("Product Name: " + opDTO.getProductName());
+            
+            Product product = productRepository.findByProductName(opDTO.getProductName().trim());
+            productRepository.decreaseQuantityByProductName(opDTO.getProductName().trim(), opDTO.getQuantity());
+            if (product == null) {
+                throw new IllegalArgumentException("Product not found: " + opDTO.getProductName());
+            }
+            
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setProduct(product);
+            orderProduct.setQuantity(opDTO.getQuantity());
+            orderProduct.setPrice((long)(product.getPrice() * opDTO.getQuantity())); // Calculate price
+    
+            // Ensure the orderProduct's order is set
+            orderProduct.setOrder(order);
+    
+            orderProducts.add(orderProduct);
+        }
+    
+        // Set order products and save the order
+        order.setOrderProducts(orderProducts);
+    
+        return orderRepository.save(order);
+    }
+    
     public List<Order> findByCustomerID(Long customerID) {
         return orderRepository.findByCustomerID(customerID);
     }
@@ -145,11 +146,12 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> getOrdersByCustomer(Long customerID) {
         return orderRepository.findByCustomerID(customerID);
     }
+    
 
     public Order getOrder(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
-
+    
     public Order updateOrder(Long id, Order order) {
         Order existingOrder = orderRepository.findById(id).orElse(null);
         if (existingOrder != null) {
@@ -158,5 +160,11 @@ public class OrderServiceImpl implements OrderService{
             return orderRepository.save(existingOrder);
         }
         return null;
+    }
+
+
+    @Override
+    public List<Order> findByCustomerEmail(String email) {
+        return orderRepository.findByCustomerEmail(email);
     }
 }

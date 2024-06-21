@@ -32,6 +32,12 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Query(value = "SELECT jsonb_agg(jsonb_build_object('id', c.customer_id, 'username', c.user_name,'role' , c.role, 'email', c.email, 'date of birth', c.date_of_birth, 'first name', c.first_name, 'last name', c.last_name, 'created by', c.admin_id)) FROM Customers c", nativeQuery = true)
     String findAllCustomersAsJson();
 
+    @Query("SELECT c.ID FROM Customer c WHERE c.email = :email")
+    Long findCustomerIdByEmail(String email);
+
+    @Query("SELECT c FROM Customer c WHERE c.email = :email")
+    Customer findByEmail(String email);
+
 }
 
     

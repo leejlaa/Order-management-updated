@@ -52,8 +52,8 @@ public class Customer extends User{
     @JoinColumn(name = "admin_id")
     private Admin admin;
 
-    public Customer(Long ID, String username, String password, String email, String firstName, String lastName, Date dateOfBirth, Address currentResidence, List<Order> orders, Admin admin) {
-        super (ID, username, password, email, "customer");
+    public Customer(Long ID, String userName, String password, String email, String firstName, String lastName, Date dateOfBirth, Address currentResidence, List<Order> orders, Admin admin) {
+        super (ID, userName, password, email, "customer");
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;

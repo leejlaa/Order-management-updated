@@ -20,6 +20,8 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query("SELECT o FROM Order o JOIN FETCH o.orderProducts WHERE o.customer.ID = :ID")
     List<Order> findAllOrdersWithProductsByCustomerID(Long ID);
 
+    @Query("SELECT o FROM Order o WHERE o.customer.email = :email")
+    List<Order> findByCustomerEmail(String email);
 
 }
 

@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.text.ParseException;
 import java.util.Scanner;
 
 import org.springframework.boot.SpringApplication;
@@ -18,7 +17,7 @@ import com.example.demo.models.Main;
 @SpringBootApplication( scanBasePackages = {"com.example.demo.*"})
 public class DemoApplication {
 
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws Exception {
 		ConfigurableApplicationContext context = SpringApplication.run(DemoApplication.class, args);
         Main main = context.getBean(Main.class);
 			main.main();

@@ -1,5 +1,7 @@
 package com.example.demo.models;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 @MappedSuperclass
 
@@ -23,6 +26,9 @@ public abstract class User {
     @Column(name = "user_name", unique = true)
     private String userName;
     private String password;
+
+    
+    @Column(unique = true) 
     private String email;
     private String role;
 

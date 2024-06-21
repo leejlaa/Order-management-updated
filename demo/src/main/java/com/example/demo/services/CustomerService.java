@@ -7,7 +7,8 @@ import com.example.demo.models.Customer;
 public interface CustomerService {
 
     public Customer createCustomer(Long adminID,Customer customer);
-    public Customer getCustomer(Long id);
+    public Long getCustomerId(String email);
+    public Customer getCustomer(String email);
     public Customer updateCustomer(Long id, Customer customer);
     public boolean deleteCustomer(String userName);
     public Customer getCustomerByUserName(String userName);

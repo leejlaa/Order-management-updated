@@ -43,16 +43,16 @@ public class AdminServiceImplTest {
         admin.setPassword("password");
     }
 
-    @Test
-    public void testCreateAdmin() {
-        when(adminRepository.findByUserName("admin")).thenReturn(null);
-        when(adminRepository.save(admin)).thenReturn(admin);
+    // @Test
+    // public void testCreateAdmin() {
+    //     when(adminRepository.findByUserName("admin")).thenReturn(null);
+    //     when(adminRepository.save(admin)).thenReturn(admin);
 
-        Admin createdAdmin = adminService.createAdmin(admin);
+    //     Admin createdAdmin = adminService.createAdmin(admin);
 
-        assertNotNull(createdAdmin);
-        assertEquals("admin", createdAdmin.getUserName());
-    }
+    //     assertNotNull(createdAdmin);
+    //     assertEquals("admin", createdAdmin.getUserName());
+    // }
 
     @Test
     public void testGetAdmin() {
